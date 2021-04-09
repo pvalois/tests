@@ -2,22 +2,17 @@
 
 import os
 from flask import Flask
-import string
-import random
-
-def randomstring(stringLength=8):
-    letters = string.ascii_lowercase
-    return ''.join(random.sample(letters, stringLength))
+import names
 
 app = Flask(__name__)
 
 @app.route('/')
 def hello():
-  return ("Hello, "+randomstring())
+  return ("Hello, "+names.get_full_name())
 
 @app.route('/populate')
 def populate():
-  return ("Hello, Populous !")
+  return ("inserting datas ... NOT")
 
 if __name__ == '__main__':
   app.run(host="0.0.0.0",port="5000")
