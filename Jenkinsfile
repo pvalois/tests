@@ -6,7 +6,8 @@ pipeline {
             steps {
               script {
                 sh """
-                docker build . -t flask1
+                docker build . -t 192.168.1.63:5000/flask1
+                docker image push 192.168.1.63:5000/flask1:latest
                 """
               }
             }
