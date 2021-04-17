@@ -14,7 +14,11 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+              script {
+                sh """
+                kubectl apply -f deploy/deploy.yaml 
+                """
+              }
             }
         }
     }
