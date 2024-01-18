@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: flask
-        image: devilbox/python-flask:latest 
+        image: hub.docker.com/adrianovieira/flask
         ports:
         - containerPort: 5000
 
