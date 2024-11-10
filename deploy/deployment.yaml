@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask
+  template:
+    metadata:
+      labels:
+        app: flask
+    spec:
+      containers:
+      - name: flask
+        image: adrianovieira/flask
+        ports:
+        - containerPort: 5000
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    name: flask
+  name: flask
+spec:
+  ports:
+    - port: 5000
+      targetPort: 5000
+  selector:
+    app: flask
+  type: ClusterIP
+
