@@ -12,7 +12,7 @@ spec:
   tls: 
     - hosts: 
         - magnus.pepiniere.cloudns.ch
-      secretName: fathom
+      secretName: magnus
   rules:
     - host: magnus.pepiniere.cloudns.ch
       http:
