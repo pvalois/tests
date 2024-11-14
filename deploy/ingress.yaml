@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flask
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: traefik
+  tls: 
+    - hosts: 
+        - magnus.pepiniere.cloudns.ch
+      secretName: fathom
+  rules:
+    - host: magnus.pepiniere.cloudns.ch
+      http:
+        paths:
+          - path: /
+            pathType: Exact
+            backend:
+              service:
+                name: flask
+                port:
+                  number: 80
+
