@@ -1,27 +1,13 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteTCP
 metadata:
   name: flask
-  annotations:
-    kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.tls: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
-  ingressClassName: traefik
-  tls: 
-    - hosts: 
-        - magnus.pepiniere.cloudns.ch
-      secretName: magnus
-  rules:
-    - host: magnus.pepiniere.cloudns.ch
-      http:
-        paths:
-          - path: /
-            pathType: Exact
-            backend:
-              service:
-                name: flask
-                port:
-                  number: 80
+  entryPoints:
+    - flask
+  routes:
+    - match: HostSNI("magnus.pepiniere.cloudns.ch")
+      service:
+      - name: flask
+        port: 80
 
