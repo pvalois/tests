@@ -1,19 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flask
+  name: photobomb
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: flask
+      app: photobomb
   template:
     metadata:
       labels:
-        app: flask
+        app: photobomb
     spec:
+      volumes:
+        - name: nginx-storage
+          persistentVolumeClaim:
+            claimName: example-dataset
       containers:
-      - name: flask
-        image: adrianovieira/flask
-        ports:
-        - containerPort: 5000
+        - name: nginx
+          image: nginx
+          volumeMounts:
+            - mountPath: "/usr/share/nginx/html"
+              name: nginx-storage
+
